@@ -21,8 +21,7 @@ if (array_key_exists("name", $_GET) && $_GET['name'] !== '') {
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>你好啊，预言家</title>
-    /**页面背景及布局 */
+    <title>你好啊，预言家</title>  
     <style>
         body {
             display: flex;

@@ -45,7 +45,7 @@ if (array_key_exists("name", $_GET) && $_GET['name'] !== '') {
 ```
 这说明存在反射型 XSS 漏洞。尝试注入简单的 JavaScript：
 ```
-<script>alert('XSS')</>
+<script>alert('XSS')</script>
 ```
 页面弹出对话框，漏洞确认。
 
