@@ -34,8 +34,9 @@ User-Agent: Mozilla/5.0 ...
 ```
 第一关中提示
 `‘预言家,没有饼干了,我需要...’`及一道数学题可知需要添加Cookie及其对应值。Cookie值由数学题解出为**78**，随后在在请求头中添加
-> Cookie: cookie=78
->
+```
+Cookie: cookie=78
+```
 构造成类似如下请求：
 ```
 GET / HTTP/1.1
