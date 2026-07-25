@@ -50,7 +50,7 @@ Cookie: cookie=78
 由提示
 >‘预言家,现在的交流方法不太安全,改成一个安全的方式吧。而且你是知道女祭司和预言家是一对的,别忘用英语写在数据里哦’
 
-可知需要将请求头中的`GET`改为`POST`在 Body 中写入 `priestess=prophet`
+可知需要将请求头中的`GET`改为`POST`并在 Body 中写入 `priestess=prophet`
 
 构造成类似如下请求：
 ```
