@@ -2,7 +2,7 @@
 
 ## 题目概述
 
-这是一个简单的反射型 XSS 题目，页面接收 `name` 参数并直接回显到页面上，未做任何过滤或转义。Flag 被写入 Cookie，但经过 **Base64 编码**。参赛者需要通过 XSS 漏洞读取 Cookie 中的值，然后解码得到真正的 Flag。
+这是一个简单的反射型 XSS 题目，页面接收 `name` 参数并直接回显到页面上，未做任何过滤或转义。Flag 被写入 Cookie，但经过 **Base64 编码**。需要通过 XSS 漏洞读取 Cookie 中的值，然后解码得到真正的 Flag。
 
 - **考点**：反射型 XSS、JavaScript 操作 Cookie、Base64 解码
 - **难度**：1
@@ -16,7 +16,7 @@
 
 ```BASH
 # 进入项目目录
-cd web-ctf/docker
+cd xss-ctf/docker
 # 构建并启动容器
 docker-compose up -d --build
 #访问 

@@ -1,0 +1,8 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      - FLAG=ZmxhZ3syNjgxYjMwOS1jOTcwLTQ0NDYtOTgzNi1iYWZjNzg0NjllYjZ9

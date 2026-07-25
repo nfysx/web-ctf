@@ -108,7 +108,7 @@ if (array_key_exists("name", $_GET) && $_GET['name'] !== '') {
             <?php echo $greeting; ?>
          <!-- 后端输出显示在这里 -->
         </div>
-        <p class="hint">tips: 不妨试试其他一些字符呢，预言家</p>
+        <p class="hint">tips: 想吃饼干了呢，预言家</p>
     </div>
 </body>
 </html>
