@@ -109,8 +109,8 @@ if ($step1 && $step2 && $step3) {
             color: #c7254e;
         }
         @media (max-width: 480px) {
-            .card { padding: 25px 20px; }
-        }
+            .card { padding: 25px 20px;}
+        } 
     </style>
 </head>
 <body>
