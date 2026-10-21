@@ -1,9 +1,0 @@
-version: '3.8'
-
-services:
-  web:
-    build: .
-    ports:
-      - "8080:80"            # 宿主机端口映射
-    environment:
-      - FLAG=flag{63FC7BC8-AFD8-8AC3-F21A-CE6F3AB13127}   # 替换动态Flag

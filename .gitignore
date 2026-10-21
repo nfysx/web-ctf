@@ -1,0 +1,13 @@
+# 出题残留
+*.tar
+*.tar.gz
+*.zip
+!www.zip
+my-challenge.tar
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 演示站需要保留 .DS_Store（它就是被泄露的文件）
+!infoleak-demo/src/.DS_Store
