@@ -15,6 +15,10 @@
 
 ## 二、启动环境
 
+> ⚠️ **Windows PowerShell 5.1 用户注意**：`curl` 在那里是 `Invoke-WebRequest` 的别名，
+> 敲 `curl -H "A: B"` 会报「无法绑定参数 Headers」。请改用 **`curl.exe`**（Windows 10 1803+ 自带）。
+> 完整命令对照表见总 README 的「**在 Windows 上怎么敲这些命令**」一节。
+
 ```bash
 cd status-ctf
 docker compose up -d --build

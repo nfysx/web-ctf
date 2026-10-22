@@ -1,14 +1,20 @@
 <?php
 /**
- * 反射型XSS
- * Flag 从环境变量 FLAG 读取，并写入Cookie
+ * 反射型 XSS
+ * 会话标识（sid）放在 Cookie 里 —— 但它只是标识，本身换不到任何东西
+ * 想拿 flag，得让页面里的 claim() 跑起来
  */
-require __DIR__ . '/flag.inc.php';
-$flag = ctf_flag();   // 动态 flag：优先环境变量 FLAG，未注入则自动随机生成
-// 将 Flag 编码为 Base64 并设置为 Cookie 
-$flag_encoded = base64_encode($flag);
-// 将Flag写入Cookie（有效期1小时）
-setcookie("flag", $flag_encoded, time() + 3600, "/");
+require __DIR__ . '/sid.inc.php';
+header('Content-Type: text/html; charset=utf-8');
+
+// 每次访问发一个服务端签发的会话标识（与 flag 无关，不含任何信息）
+if (!isset($_COOKIE['sid']) || !ctf_sid_valid((string)$_COOKIE['sid'])) {
+    $sid = ctf_make_sid();
+    setcookie('sid', $sid, time() + 3600, "/");
+} else {
+    $sid = (string)$_COOKIE['sid'];
+}
+
 // 禁用浏览器XSS防护
 header("X-XSS-Protection: 0");
 
@@ -95,8 +101,21 @@ if (array_key_exists("name", $_GET) && $_GET['name'] !== '') {
             margin-top: 20px;
             color: #333;
             font-size: 14px;
+            line-height: 1.7;
         }
     </style>
+    <script>
+    function claim() {
+        var m = document.cookie.match(/(?:^|;\s*)sid=([^;]+)/);
+        var sid = m ? m[1] : '';
+        var box = document.getElementById('result');
+        if (!sid) { box.textContent = '没有 sid，先刷新一下页面'; return; }
+        fetch('/claim.php?sid=' + encodeURIComponent(sid))
+            .then(function (r) { return r.text(); })
+            .then(function (t) { box.innerHTML = '<pre>' + t + '</pre>'; })
+            .catch(function (e) { box.textContent = '领取失败：' + e; });
+    }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -107,9 +126,9 @@ if (array_key_exists("name", $_GET) && $_GET['name'] !== '') {
         </form>
         <div id="result">
             <?php echo $greeting; ?>
-         <!-- 后端输出显示在这里 -->
         </div>
-        <p class="hint">tips: 想吃饼干了呢，预言家</p>
+        <p class="hint">tips: 想吃饼干了呢，预言家。<br>
+         tips: 源码...源码...</p>
     </div>
 </body>
 </html>

@@ -15,6 +15,10 @@
 
 ## 二、启动环境
 
+> ⚠️ **Windows PowerShell 5.1 用户注意**：`curl` 在那里是 `Invoke-WebRequest` 的别名，
+> 敲 `curl -H "A: B"` 会报「无法绑定参数 Headers」。请改用 **`curl.exe`**（Windows 10 1803+ 自带）。
+> 完整命令对照表见总 README 的「**在 Windows 上怎么敲这些命令**」一节。
+
 ```bash
 cd http-message-ctf
 docker compose up -d --build
@@ -63,6 +67,8 @@ Cookie: cookie=78
 curl -i -X POST "http://127.0.0.1:8080/" \
      -H "Cookie: cookie=78" \
      -d "priestess=prophet"
+
+curl -i -X POST "http://127.0.0.1:8080/" -H "Cookie: cookie=78" -d "priestess=prophet"
 ```
 
 Burp 里则是：`GET` 改 `POST`，头部补 `Content-Type: application/x-www-form-urlencoded`，body 写 `priestess=prophet`。
@@ -77,6 +83,8 @@ Burp 里则是：`GET` 改 `POST`，头部补 `Content-Type: application/x-www-f
 curl -i -X POST "http://127.0.0.1:8080/?admin=1" \
      -H "Cookie: cookie=78" \
      -d "priestess=prophet"
+
+curl -i -X POST "http://127.0.0.1:8080/?admin=1" -H "Cookie: cookie=78" -d "priestess=prophet"     
 ```
 
 响应里会看到：

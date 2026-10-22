@@ -33,20 +33,16 @@ button{margin-top:18px;padding:10px 22px;border:0;border-radius:6px;background:#
 .tip{color:#9b8aa9;font-size:13px;line-height:1.7}code{background:#141018;padding:2px 6px;border-radius:4px;color:#fde68a}
 </style></head>
 <body><div class="card">
-<h1>上传你的头像</h1>
+<h1>上传你的文件</h1>
 <form method="post" enctype="multipart/form-data">
-  <label>选择图片</label>
   <input type="file" name="f">
   <button type="submit">上传</button>
 </form>
-<p class="tip">限制：只接受图片 —— 它看的是 <code>Content-Type</code>，
-也就是<b>你自己报上来的那个值</b>。</p>
 <?php if ($msg !== ''): ?>
   <div class="msg"><?php echo $msg; ?>
   <?php if ($link !== ''): ?><br>访问：<a href="<?php echo $link; ?>" style="color:#d8b4fe"><?php echo $link; ?></a><?php endif; ?>
   </div>
 <?php endif; ?>
-<p class="tip">运维提醒：上传目录 <code>uploads/</code> 是可直接访问的。</p>
-<p class="tip">在这儿传个 <code>.php</code> 上去 —— 这一步确实 <b>AI 做不到这么抽象</b>；<br>
-不过真敢这么干，<b>你的胆子真是肥嘟嘟的啊</b>。</p>
+<p class="tip">tips:文件上传嘛...传点最好的语言的文件吧！<br>
+    tips:注意请求头哦</p>
 </div></body></html>

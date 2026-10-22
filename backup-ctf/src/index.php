@@ -17,9 +17,9 @@ h1{margin-top:0;font-size:22px}code{background:#eee8dc;padding:2px 6px;border-ra
 pre{background:#2a2a35;color:#7de3a1;padding:14px;border-radius:8px;overflow-x:auto}
 .tip{color:#8a8676;font-size:14px}</style></head>
 <body><div class="card">
-<h1>内部通知系统 v0.9</h1>
+<h1>内部通知系统 v1.0</h1>
 <p>系统正在升级，功能暂不可用。</p>
-<p class="tip">运维备注：上线时记得把调试入口关掉。</p>
+<p class="tip">运维备注：记得把调试入口关掉。</p>
 <?php if ($out !== ''): ?>
   <h2>调试输出</h2>
   <pre><?php echo htmlspecialchars($out, ENT_QUOTES, 'UTF-8'); ?></pre>

@@ -7,5 +7,6 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 INSERT INTO users (username, password, role) VALUES
+  ('user', 'user', 'user'),
   ('guest', 'guest', 'guest'),
   ('admin', '18fcbe4d1b4d4ca61233f0e49293f8df', 'admin');

@@ -17,6 +17,10 @@
 
 ## 二、启动环境
 
+> ⚠️ **Windows PowerShell 5.1 用户注意**：`curl` 在那里是 `Invoke-WebRequest` 的别名，
+> 敲 `curl -H "A: B"` 会报「无法绑定参数 Headers」。请改用 **`curl.exe`**（Windows 10 1803+ 自带）。
+> 完整命令对照表见总 README 的「**在 Windows 上怎么敲这些命令**」一节。
+
 ```bash
 cd header-ctf
 docker compose up -d --build
@@ -45,6 +49,15 @@ curl -s http://127.0.0.1:8087/ \
 ```
 
 两个条件变绿 → 页面输出 Flag。
+
+> **`/1.0` 不是必须的** —— 服务端用的是 `stripos($ua, 'AdminBot')`（子串 + 忽略大小写），
+> 所以写 `AdminBot` 就够了。`/1.0` 只是 **User-Agent 的惯例格式**：`产品名/版本号`。
+> 真实爬虫都长这样：`Googlebot/2.1`、`Baiduspider/2.0`、`python-requests/2.31.0`、`curl/8.16.0`。
+> 你也可以写 `AdminBot/99.9` —— **版本号是自报的，没有任何校验**，这本身就是本题想讲的东西。
+>
+> 附带一个真实的坑：子串匹配意味着 `NotAdminBot`、`AdminBotX` 也会通过。
+> 真实反爬如果这么写，绕起来更简单 —— 严格点应该用
+> `preg_match('/^AdminBot(\/[\d.]+)?$/i', $ua)`。
 
 ### Step 3｜Burp 方式
 

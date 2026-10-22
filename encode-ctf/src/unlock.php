@@ -14,11 +14,10 @@ p{line-height:1.8}.tip{color:#8aa595;font-size:13px}
 </style></head>
 <body><div class="card">
 <?php if ($ok): ?>
-  <h1>门开了</h1>
+  <h1>编码开门！</h1>
   <pre><?php echo htmlspecialchars(ctf_flag(), ENT_QUOTES, 'UTF-8'); ?></pre>
 <?php else: ?>
-  <h1>门是锁的</h1>
-  <p>口令不对。</p>
-  <p class="tip">参数名是 <code>code</code>。</p>
+  <h1>无效编码！</h1>
+  <p> 再试试吧 </p>
 <?php endif; ?>
 </div></body></html>

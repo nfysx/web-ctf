@@ -21,24 +21,23 @@ ul{line-height:2}li.no{color:#f38ba8}li.yes{color:#a6e3a1}.tip{color:#8aa0b2;fon
 </style></head>
 <body><div class="card">
 <h1>内网管理入口</h1>
-<p class="tip">本页面仅允许「来自内网 <code>127.0.0.1</code> 的管理机器人」访问。<br>
-它连你是不是<b>真人</b>都没验过。</p>
+<p class="tip">本入口仅允许来自127.0.0.1的AdminBot访问</p>
 <ul>
   <li class="<?php echo $cond1 ? 'yes' : 'no'; ?>">
-      来源 IP 判定（<code>X-Forwarded-For</code>）：<?php echo $cond1 ? '通过' : '不通过'; ?>
+      当前来源 IP：<?php echo $cond1 ? '通过' : '不通过'; ?>
       　当前值：<code><?php echo $xff === '' ? '(未提供)' : htmlspecialchars($xff, ENT_QUOTES, 'UTF-8'); ?></code>
   </li>
   <li class="<?php echo $cond2 ? 'yes' : 'no'; ?>">
-      客户端标识判定（机器人名 <code>AdminBot</code>）：<?php echo $cond2 ? '通过' : '不通过'; ?>
+      客户端标识判定：<?php echo $cond2 ? '通过' : '不通过'; ?>
       　当前值：<code><?php echo htmlspecialchars(substr($ua, 0, 60), ENT_QUOTES, 'UTF-8'); ?></code>
   </li>
 </ul>
 <?php if ($ok): ?>
-  <h2>验证通过</h2>
+  <h2>校验通过</h2>
   <pre><?php echo htmlspecialchars(ctf_flag(), ENT_QUOTES, 'UTF-8'); ?></pre>
 <?php else: ?>
-  <p class="tip">两个条件都满足才给 flag。<br>
-  它判断身份的全部依据，就是你亲手写下的两个请求头 —— 这就是它眼里的<b>含人量</b>。<br>
-  页面上显示的两项，都是<b>你发过去的</b>，不是服务器亲自测出来的。</p>
+  <p class="tip"> tips：两个条件都满足才给哦<br>
+   tips: 了解一下XFF吧！
+  </p>
 <?php endif; ?>
 </div></body></html>

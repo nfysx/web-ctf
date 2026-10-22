@@ -33,7 +33,7 @@ if ($pdo && isset($_POST['username'], $_POST['password'])) {
     try {
         $rows = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         if (!$rows) {
-            $msg = '用户名或密码错误 —— 如何呢，又能怎？（管理员密码是随机的，硬猜没用）';
+            $msg = '用户名或密码错误';
         } else {
             $row = $rows[0];
             if ($row['role'] === 'admin') {
@@ -71,7 +71,7 @@ pre{background:#0f172a;padding:14px;border-radius:8px;color:#86efac;overflow-x:a
 </form>
 <?php if ($msg !== ''): ?><div class="msg"><?php echo htmlspecialchars($msg, ENT_QUOTES, 'UTF-8'); ?></div><?php endif; ?>
 <?php if ($level === 'admin'): ?>
-  <h2>管理员面板 · 此人的注入手法恐怕在我之上</h2>
+  <h2>正在疯狂注入ing</h2>
   <pre><?php echo htmlspecialchars(ctf_flag(), ENT_QUOTES, 'UTF-8'); ?></pre>
 <?php endif; ?>
 </div></body></html>
